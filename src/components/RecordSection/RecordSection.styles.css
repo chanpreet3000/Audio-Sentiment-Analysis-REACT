@@ -1,0 +1,43 @@
+.record-section {
+    position: relative;
+    width: 90%;
+    border-radius: 1rem;
+    background-color: var(--white);
+    padding-bottom: 2rem;
+}
+
+.record-top-section {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    padding: 4rem 0rem;
+    gap: 2rem;
+    margin: auto;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.record-details {
+    background-color: var(--white);
+}
+
+
+.lottie-animation {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0px 0px 10px 2px #9867ed2d;
+}
+
+.record-bottom-section {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+._1ceqH ._1lB9c {
+    background-color: var(--old-black) !important;
+    justify-content: center !important;
+    text-transform: capitalize !important;
+}
