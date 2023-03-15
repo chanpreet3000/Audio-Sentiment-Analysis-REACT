@@ -4,7 +4,7 @@
     border-radius: 1rem;
     width: 300px;
     min-width: 300px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgb(13, 13, 13) 100%);
+    background: linear-gradient(180deg, rgb(8, 8, 8) 0%, rgb(15, 15, 15) 100%);
     overflow: hidden;
     cursor: pointer;
     box-shadow: 0px 0px 10px 10px #7d51eb0f;

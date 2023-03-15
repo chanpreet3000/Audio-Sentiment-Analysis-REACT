@@ -8,6 +8,9 @@ const Navbar = () => {
                     <a className='main-nav__link'>
                         What is Sentivibe?
                     </a>
+                    <a className='main-nav__link developers' href='#main-footer'>
+                        Developers
+                    </a>
                 </div>
             </div>
         </nav>

@@ -1,5 +1,4 @@
 import './MainSection.styles.css'
-import Navbar from '../Navbar/Navbar.component';
 import Lottie from 'react-lottie';
 import animationData from '../../animations/temp2.json'
 
@@ -12,7 +11,6 @@ const MainSection = () => {
     };
     return (
         <section className='main-section'>
-            <Navbar />
             <div className='main-section-title-container'>
                 <span className='main-section__title highlighted'>Unleash the Power of Audio Sentiment Analysis</span>
                 <span className='main-section__title'> - Transform the Way You Listen</span>

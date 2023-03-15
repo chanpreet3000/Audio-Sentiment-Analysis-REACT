@@ -37,7 +37,7 @@ const Footer = () => {
         },
     ]
     return (
-        <section className='main-footer'>
+        <section className='main-footer' id="main-footer">
             <h1>Developers of Sentivibe</h1>
             <div className='main-footer__items'>
                 {

@@ -1,19 +1,19 @@
-import {Text,Progress} from '@chakra-ui/react'
+import { Progress } from '@chakra-ui/react'
 import React from 'react';
-export default function Status({isLoading,status}){
+export default function Status({ isLoading, status }) {
     return (
         <div>
-            <Text>
+            <h2>
                 {isLoading
-                ? `Calculating... ${status || 'uploading'}...`
-                : 'Give me audio!!' }
-            </Text>
+                    ? `Calculating... ${status || 'uploading'}...`
+                    : 'Give me audio!!'}
+            </h2>
             <Progress
-            size ="sm"
-            width = {500}
-            isIndeterminate={isLoading}
-            colorScheme="green"
-             />   
+                size="sm"
+                width={500}
+                isIndeterminate={isLoading}
+                colorScheme="green"
+            />
         </div>
     );
 }
