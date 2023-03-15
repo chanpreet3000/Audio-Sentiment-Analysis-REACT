@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlighted from './Highlighted';
-import Topics from './components/Tags/Topics.component';
+import Topics from '../Tags/Topics.component';
 export default function Result({ transcript }) {
     return (
         <div>

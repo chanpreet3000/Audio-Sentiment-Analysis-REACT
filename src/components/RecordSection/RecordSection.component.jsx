@@ -3,8 +3,8 @@ import 'react-voice-recorder/dist/index.css'
 import Legend from '../Legend/Legend.component.jsx';
 import Lottie from 'react-lottie';
 import animationData from '../../animations/temp1.json'
-import Result from '../../Result';
-import Status from '../../Status';
+import Result from '../TextUtils/Result';
+import Status from '../TextUtils/Status';
 import { Recorder } from 'react-voice-recorder';
 import axios from 'axios';
 import './RecordSection.styles.css'
