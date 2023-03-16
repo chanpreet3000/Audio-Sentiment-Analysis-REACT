@@ -57,7 +57,8 @@ const RecordSection = () => {
 
 
     const handleAudioStop = (data) => {
-        console.log("Audio Stoped " + data);
+        console.log("Audio Stoped ");
+        console.log(data);
         setAudioDetails(data);
     };
     const handleReset = () => {

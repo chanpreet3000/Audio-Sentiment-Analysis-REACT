@@ -6,8 +6,8 @@ export default function Result({ transcript }) {
         <div>
             <div>
                 {
-                    transcript.sentiment_analysis_results.map(result => (
-                        <Highlighted text={result.text} sentiment={result.sentiment} entities={transcript.entities} />
+                    transcript.sentiment_analysis_results.map((result, key) => (
+                        <Highlighted key={key} text={result.text} sentiment={result.sentiment} entities={transcript.entities} />
                     ))
                 }
             </div>

@@ -16,11 +16,11 @@ export default function Highlighted({ text, sentiment, entities }) {
             padding: "4px",
             margin: "0px 2px"
         }}>
-            {parts.map(part => {
+            {parts.map((part, key) => {
                 const matchingEntity = entities.find((e) => e.text === part);
                 if (matchingEntity) {
                     return (
-                        <span display="inline" fontWeight="bold">{part}</span>
+                        <span key={key} display="inline" fontWeight="bold">{part}</span>
                     );
                 }
                 return part;

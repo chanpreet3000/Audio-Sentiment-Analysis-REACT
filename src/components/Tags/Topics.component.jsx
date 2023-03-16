@@ -7,8 +7,8 @@ export default function Topics({ transcript }) {
             <div className='tags'>
                 {Object.keys(transcript.iab_categories_result.summary).filter(
                     topic => transcript.iab_categories_result.summary[topic] > 0.6
-                ).map(topic => (
-                    <div className='tag'>
+                ).map((topic, key) => (
+                    <div className='tag' key={key}>
                         {topic.split('>').pop()}
                     </div>
                 ))}
