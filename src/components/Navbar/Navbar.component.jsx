@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <nav className='main-nav'>
             <div className='main-nav__items'>
-                <div className='main-nav__brand'><a href='#'>Sentivibe</a></div>
+                <div className='main-nav__brand'><Link to='/'>Sentivibe</Link></div>
                 <div className='main-nav__links'>
                     <Link to={"about"} className='main-nav__link'>
                         What is Sentivibe?

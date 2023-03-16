@@ -1,0 +1,122 @@
+.about-section {
+    /* background: linear-gradient(180deg, var(--black) 0%, var(--dark-purple) 200%); */
+    background: var(--black);
+}
+
+.about-main-section {
+    width: 60%;
+    padding-left: 12rem;
+    padding-top: 12rem;
+}
+
+.about-section__title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.about-section__title.highlighted {
+    color: var(--light-purple);
+}
+
+.lottie-animation-background {
+    width: 600px;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+    position: absolute;
+    top: 0rem;
+    opacity: 1;
+    right: 0px;
+    z-index: 0;
+}
+
+.custom-shape-divider-top-1678956511 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1678956511 svg {
+    position: relative;
+    display: block;
+    width: calc(113% + 1.3px);
+    height: 240px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1678956511 .shape-fill {
+    fill: #000000;
+}
+
+.work-section {
+    margin-top: 4rem;
+    background: linear-gradient(225deg, rgb(3, 2, 41) 60%, rgb(0, 64, 92) 125%);
+}
+
+.work-section-container {
+    padding: 0rem 6rem;
+    padding-bottom: 6rem;
+    display: flex;
+    align-items: stretch;
+    justify-items: center;
+    gap: 4rem;
+}
+
+.container-content {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.container-image {
+    width: 50%;
+    background-color: black;
+    border-radius: 50% 75% 125% 225%;
+    overflow: hidden;
+}
+
+.container-content-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-content-item {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.276);
+}
+
+.item-title {
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: bold;
+}
+
+.item-description {
+    font-size: 0.9rem;
+    font-weight: lighter;
+    color: rgba(220, 220, 220);
+    line-height: 1.2rem;
+}
+
+.work-section-heading {
+    font-size: 2.5rem;
+    color: var(--white);
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 4rem;
+    margin-left: 6rem;
+}
