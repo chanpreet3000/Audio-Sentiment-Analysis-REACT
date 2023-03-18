@@ -9,7 +9,7 @@ const Footer = () => {
             roll_no: "2020UCB6038",
             batch: "B.Tech CSDA",
             semester: "6",
-            word_done: "MISSING-DATA",
+            word_done: "Frontend UI-UX",
         },
         {
             student_name: "Aryan Singh",
@@ -17,7 +17,7 @@ const Footer = () => {
             roll_no: "2020UCB6053",
             batch: "B.Tech CSDA",
             semester: "6",
-            word_done: "MISSING-DATA",
+            word_done: "API Integeration and model training",
         },
         {
             student_name: "Ankit Singh",
@@ -25,7 +25,7 @@ const Footer = () => {
             roll_no: "2020UCB6039",
             batch: "B.Tech CSDA",
             semester: "6",
-            word_done: "MISSING-DATA",
+            word_done: "Frontend and API",
         },
         {
             student_name: "Aashish Garg",
@@ -33,7 +33,7 @@ const Footer = () => {
             roll_no: "2020UCB6029",
             batch: "B.Tech CSDA",
             semester: "6",
-            word_done: "MISSING-DATA",
+            word_done: "Model Training and Testing dataset",
         },
     ]
     return (

@@ -5,13 +5,17 @@ export default function Topics({ transcript }) {
         <div>
             <h1>Topics Detected: </h1>
             <div className='tags'>
-                {Object.keys(transcript.iab_categories_result.summary).filter(
-                    topic => transcript.iab_categories_result.summary[topic] > 0.6
-                ).map((topic, key) => (
-                    <div className='tag' key={key}>
-                        {topic.split('>').pop()}
-                    </div>
-                ))}
+                {
+                    Object.keys(transcript.iab_categories_result.summary).filter(
+                        topic => transcript.iab_categories_result.summary[topic] > 0.6
+                    ).map((topic, key) => {
+                        return (
+                            <a className='tag' key={key} target='_blank' href={`https://www.google.com/search?q=${topic.split('>').pop()}`}>
+                                {topic.split('>').pop()}
+                            </a>
+                        )
+                    })
+                }
             </div>
         </div>
     );
