@@ -8,7 +8,6 @@ import Status from '../TextUtils/Status';
 import { Recorder } from 'react-voice-recorder';
 import axios from 'axios';
 import './RecordSection.styles.css'
-import Temp from './Temp.component.jsx';
 
 const assemblyApi = axios.create({
     baseURL: 'https://api.assemblyai.com/v2',
@@ -33,7 +32,7 @@ const initialState = {
         s: 0,
     },
 };
-const RecordSection = () => {
+const Temp = () => {
     const [audioDetails, setAudioDetails] = useState(initialState);
     const [transcript, setTranscript] = useState({ id: '' });
     const [isLoading, setisLoading] = useState(false);
@@ -114,4 +113,4 @@ const RecordSection = () => {
     );
 };
 
-export default RecordSection;
+export default Temp;
