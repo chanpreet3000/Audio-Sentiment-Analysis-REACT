@@ -8,9 +8,8 @@ import Status from '../TextUtils/Status';
 import { Recorder } from 'react-voice-recorder';
 import axios from 'axios';
 import './RecordSection.styles.css'
-import Temp from './Temp.component.jsx';
 
-const assemblyApi = axios.create({
+const assembly = axios.create({
     baseURL: 'https://api.assemblyai.com/v2',
     headers: {
         authorization: "3ac2bb277daf45bcbc8c846d467d649a",
@@ -33,10 +32,11 @@ const initialState = {
         s: 0,
     },
 };
-const RecordSection = () => {
+const RecorderSection = () => {
     const [audioDetails, setAudioDetails] = useState(initialState);
     const [transcript, setTranscript] = useState({ id: '' });
-    const [isLoading, setisLoading] = useState(false);
+    const [helperText, setHelperText] = useState('Upload an audio file.');
+
     useEffect(() => {
         if (transcript.id !== '' && transcript.status !== 'completed') {
             fetchTranscriptResults();
@@ -44,40 +44,57 @@ const RecordSection = () => {
     }, [transcript]);
 
     const handleAudioStop = (data) => {
-        console.log("Audio Stoped ");
-        console.log(data);
+        console.log("Audio Stoped with data : ", data);
         setAudioDetails(data);
     };
     const handleReset = () => {
+        setHelperText('Upload an audio file.');
         console.log("Audio Reset ");
-
         setAudioDetails({ ...initialState });
         setTranscript({ id: '' });
     };
     const handleAudioUpload = async (audioFile) => {
-        console.log("Uploading..." + audioFile);
-        setisLoading(true);
-        const { data: uploadResponse } = await assemblyApi.post('/upload', audioFile);
-        console.log(uploadResponse)
+        if (audioFile == null) {
+            console.log("File uploaded is Empty...");
+            setHelperText("File uploaded is Empty.");
+        } else {
+            setTranscript({ id: '' });
+            setHelperText("Uploading Audio..")
+            console.log("Uploading...", audioFile);
 
-        const { data } = await assemblyApi.post('/transcript', {
-            audio_url: uploadResponse.upload_url,
-            sentiment_analysis: true,
-            entity_detection: true,
-            iab_categories: true,
-        });
-        console.log(data)
+            const { data: uploadResponse } = await assembly.post('/upload', audioFile);
+            console.log("File Uploaded : ", uploadResponse)
+            setHelperText("Audio Uploaded..")
 
-        setTranscript({ id: data.id });
+            const { data } = await assembly.post('/transcript', {
+                audio_url: uploadResponse.upload_url,
+                sentiment_analysis: true,
+                entity_detection: true,
+                iab_categories: true,
+            });
+            setHelperText("Sending Audio for Transcription.")
+            console.log("File sent for transcript : ", data)
+            setTranscript({ id: data.id });
+        }
     };
     const fetchTranscriptResults = async () => {
-        await assemblyApi.get(`/transcript/${transcript.id}`)
+        await assembly.get(`/transcript/${transcript.id}`)
             .then((res) => {
                 console.log(res.data.status);
                 if (res.data.status === 'completed') {
                     setTranscript(res.data);
+                    setHelperText("Audio processing Completed!");
                     return;
-                } else {
+                }
+                else {
+                    if (res.data.status === 'queued') {
+                        setHelperText('Queuing...')
+                    } else if (res.data.status === 'processing') {
+                        setHelperText("Audio is processing ...");
+                    } else if (res.data.status === 'error') {
+                        setHelperText(`An error occured during processing : ${res.data.error}`);
+                        return;
+                    }
                     setTimeout(async () => {
                         await fetchTranscriptResults();
                     }, 1000);
@@ -91,13 +108,14 @@ const RecordSection = () => {
             <Legend />
             <div className='record-top-section'>
                 <div className='lottie-animation'>
-                    <Lottie
-                        options={defaultOptions}
-                    />
+                    <Lottie options={defaultOptions} />
                 </div>
                 <div className='record-details'>
-                    {transcript.text && transcript.status === 'completed'
-                        ? (<Result transcript={transcript} />) : (<Status isLoading={isLoading} status={transcript.status} />)}
+                    {
+                        transcript.status === 'completed' ?
+                            <Result transcript={transcript} /> :
+                            <Status transcript={transcript} status={helperText} />
+                    }
                 </div>
             </div>
             <div className='record-bottom-section'>
@@ -114,4 +132,4 @@ const RecordSection = () => {
     );
 };
 
-export default RecordSection;
+export default RecorderSection;

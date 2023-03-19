@@ -1,12 +1,15 @@
 import React from 'react';
-export default function Status({ isLoading, status }) {
+import './Status.styles.css';
+export default function Status({ transcript, status }) {
+    console.log(transcript);
     return (
         <div>
-            <h2>
-                {isLoading
-                    ? `Calculating... ${status || 'uploading'}...`
-                    : 'Give me audio!!'}
-            </h2>
+            <h2>{status}</h2>
+            {
+                transcript.id !== '' ?
+                    <div className='loader'></div> :
+                    <></>
+            }
         </div>
     );
 }

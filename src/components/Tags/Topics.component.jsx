@@ -3,7 +3,7 @@ import './Topics.styles.css'
 export default function Topics({ transcript }) {
     return (
         <div>
-            <h1>Topics Detected: </h1>
+            <h3>Topics Detected: </h3>
             <div className='tags'>
                 {
                     Object.keys(transcript.iab_categories_result.summary).filter(

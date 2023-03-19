@@ -17,10 +17,6 @@
     justify-content: flex-start;
 }
 
-.record-details {
-    background-color: var(--white);
-}
-
 
 .lottie-animation {
     height: 200px;

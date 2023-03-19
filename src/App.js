@@ -7,9 +7,7 @@ import RecordSection from './components/RecordSection/RecordSection.component';
 import {
   BrowserRouter,
   Routes,
-  Switch,
   Route,
-  Link
 } from "react-router-dom";
 import About from './components/About/About.component';
 function App() {
