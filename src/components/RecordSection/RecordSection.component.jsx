@@ -1,140 +1,142 @@
-import { useState, useEffect } from 'react';
-import 'react-voice-recorder/dist/index.css'
-import Legend from '../Legend/Legend.component.jsx';
-import Lottie from 'react-lottie';
-import animationData from '../../animations/temp1.json'
-import Result from '../TextUtils/Result';
-import Status from '../TextUtils/Status';
-import { Recorder } from 'react-voice-recorder';
-import axios from 'axios';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import './RecordSection.styles.css'
+import Legend from "../Legend/Legend.component";
 
-const assembly = axios.create({
-    baseURL: 'https://api.assemblyai.com/v2',
-    headers: {
-        authorization: "3ac2bb277daf45bcbc8c846d467d649a",
-        'content-type': 'application/json',
-    },
-});
-const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    renderer: 'svg'
-};
-const initialState = {
-    url: null,
-    blob: null,
-    chunks: null,
-    duration: {
-        h: 0,
-        m: 0,
-        s: 0,
-    },
-};
-const RecorderSection = () => {
-    const [audioDetails, setAudioDetails] = useState(initialState);
-    const [transcript, setTranscript] = useState({ id: '' });
-    const [helperText, setHelperText] = useState('Upload an audio file.');
+const RecordSection = () => {
+    const recorderControls = useAudioRecorder()
+    const [file, setFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState(null);
+    const [helperText, sethelperText] = useState("Please Upload Audio File")
 
-    useEffect(() => {
-        if (transcript.id !== '' && transcript.status !== 'completed') {
-            fetchTranscriptResults();
-        }
-    }, [transcript]);
+    const handleFileUpload = (event) => {
+        setFile(event.target.files[0]);
+    }
+    const uploadFile = async () => {
+        setData(null);
+        sethelperText("Audio Sent for processing...");
+        setIsLoading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        axios.post('/upload', formData)
+            .then((response) => {
+                console.log(response);
+                setIsLoading(false);
+                sethelperText("Data Results")
+                setData(response.data);
+            })
+            .catch(error => {
+                console.log(error)
+                setIsLoading(false);
+                sethelperText("Please Upload Audio File")
+                setData(null);
+            });
+    }
 
-    const handleAudioStop = (data) => {
-        console.log("Audio Stoped with data : ", data);
-        setAudioDetails(data);
-    };
-    const handleReset = () => {
-        setHelperText('Upload an audio file.');
-        console.log("Audio Reset ");
-        setAudioDetails({ ...initialState });
-        setTranscript({ id: '' });
-    };
-    const handleAudioUpload = async (audioFile) => {
-        if (audioFile == null) {
-            console.log("File uploaded is Empty...");
-            setHelperText("File uploaded is Empty.");
-        } else {
-            const formData = new FormData();
-            formData.append('file', audioFile);
-            axios.post('/upload', formData)
-              .then(response => console.log(response))
-              .catch(error => console.log(error));
-            // setTranscript({ id: '' });
-            // setHelperText("Uploading Audio..")
-            // console.log("Uploading...", audioFile);
-
-            // const { data: uploadResponse } = await assembly.post('/upload', audioFile);
-            // console.log("File Uploaded : ", uploadResponse)
-            // setHelperText("Audio Uploaded..")
-
-            // const { data } = await assembly.post('/transcript', {
-            //     audio_url: uploadResponse.upload_url,
-            //     sentiment_analysis: true,
-            //     entity_detection: true,
-            //     iab_categories: true,
-            // });
-            // setHelperText("Sending Audio for Transcription.")
-            // console.log("File sent for transcript : ", data)
-            // setTranscript({ id: data.id });
-        }
-    };
-    const fetchTranscriptResults = async () => {
-        await assembly.get(`/transcript/${transcript.id}`)
-            .then((res) => {
-                console.log(res.data.status);
-                if (res.data.status === 'completed') {
-                    setTranscript(res.data);
-                    setHelperText("Audio processing Completed!");
-                    return;
-                }
-                else {
-                    if (res.data.status === 'queued') {
-                        setHelperText('Queuing...')
-                    } else if (res.data.status === 'processing') {
-                        setHelperText("Audio is processing ...");
-                    } else if (res.data.status === 'error') {
-                        setHelperText(`An error occured during processing : ${res.data.error}`);
-                        return;
-                    }
-                    setTimeout(async () => {
-                        await fetchTranscriptResults();
-                    }, 1000);
-                }
-            }).catch((error) => {
-                console.log(error);
+    const uploadRecordedAudio = async (blob) => {
+        setData(null);
+        sethelperText("Audio Sent for processing...");
+        setIsLoading(true);
+        const formData = new FormData();
+        formData.append("audioFile", blob, "audio.webm");
+        axios.post('/convert', formData)
+            .then((response) => {
+                console.log(response);
+                setIsLoading(false);
+                sethelperText("Data Results")
+                setData(response.data);
+            })
+            .catch(error => {
+                console.log(error)
+                setIsLoading(false);
+                sethelperText("Please Upload Audio File")
+                setData(null);
             });
     };
     return (
-        <section className='record-section' id='record-section'>
+        <section className="record-section" id="record-section">
             <Legend />
-            <div className='record-top-section'>
-                <div className='lottie-animation'>
-                    <Lottie options={defaultOptions} />
+            <div className="record-container">
+                <div className='file-upload-container'>
+                    <h1>Upload Audio</h1>
+                    <input type="file" onChange={handleFileUpload} />
+                    <button onClick={uploadFile}>Upload Audio</button>
                 </div>
-                <div className='record-details'>
-                    {
-                        transcript.status === 'completed' ?
-                            <Result transcript={transcript} /> :
-                            <Status transcript={transcript} status={helperText} />
-                    }
+                <div style={{
+                    width: "2px",
+                    height: "250px",
+                    backgroundColor: '#ddd',
+                }}>
+
+                </div>
+                <div className="file-record-container">
+                    <h1>Record Audio</h1>
+                    <AudioRecorder
+                        onRecordingComplete={(blob) => uploadRecordedAudio(blob)}
+                        recorderControls={recorderControls} />
                 </div>
             </div>
-            <div className='record-bottom-section'>
-                <Recorder
-                    title={"Stop the recording before uploading!"}
-                    record={true}
-                    audioURL={audioDetails.url}
-                    handleAudioStop={handleAudioStop}
-                    handleAudioUpload={handleAudioUpload}
-                    handleReset={handleReset}
-                />
-            </div>
-        </section>
+            {
+                <h1>{helperText}</h1>
+            }
+            {
+                isLoading === true ?
+                    <div className='loader'></div>
+                    :
+                    <></>
+            }
+            {
+                data === null ?
+                    <></>
+                    :
+                    <div className="result-items">
+                        <div className="result-item">
+                            <div className="result-item_title">Transcription</div>
+                            <div className="result-item_description">{data.transcript}</div>
+                        </div>
+                        <div className={`result-item ${data.sentiment.label}`}>
+                            <div className="result-item_title">Sentiment</div>
+                            <div className="result-item_description">The audio has a {Math.floor(data.sentiment.score * 100)}% {data.sentiment.label} sentiment</div>
+                        </div>
+                        <div className='result-item'>
+                            <div className="result-item_title">Emotions</div>
+                            <div className="emotion-items">
+                                {
+                                    data.emotions.map((ele, key) => {
+                                        return (
+                                            <div key={key} className='emotion-item'>
+                                                <div className='emotion-item__label'>{ele['label']}</div>
+                                                <div className='emotion-item__bar' style={{
+                                                    width: Math.ceil(ele['score'] * 700),
+                                                }}></div>
+                                                <div className='emotion-item__score'> {Math.ceil(ele['score'] * 100)}%</div>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className="result-item">
+                            <div className="result-item_title">Entities</div>
+                            <div className="entity-items">
+                                {
+                                    data.entities.length > 0?
+                                    data.entities.map((ele, key) => {
+                                        return (
+                                            <div key={key} className='entity-item'>{ele}</div>
+                                        );
+                                    })
+                                    :
+                                    <p>No Entites Found</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+            }
+
+        </section >
     );
 };
-
-export default RecorderSection;
+export default RecordSection;
