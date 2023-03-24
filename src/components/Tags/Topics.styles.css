@@ -15,5 +15,11 @@
     border: 2px var(--light-purple) solid;
     padding: 10px;
     border-radius: 1rem;
+    transition: all 100ms;
     cursor: pointer;
+}
+
+.tag:hover {
+    background: var(--light-purple);
+    color: white;
 }

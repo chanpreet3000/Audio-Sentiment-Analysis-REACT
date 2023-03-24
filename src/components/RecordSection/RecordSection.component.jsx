@@ -58,23 +58,28 @@ const RecorderSection = () => {
             console.log("File uploaded is Empty...");
             setHelperText("File uploaded is Empty.");
         } else {
-            setTranscript({ id: '' });
-            setHelperText("Uploading Audio..")
-            console.log("Uploading...", audioFile);
+            const formData = new FormData();
+            formData.append('file', audioFile);
+            axios.post('/upload', formData)
+              .then(response => console.log(response))
+              .catch(error => console.log(error));
+            // setTranscript({ id: '' });
+            // setHelperText("Uploading Audio..")
+            // console.log("Uploading...", audioFile);
 
-            const { data: uploadResponse } = await assembly.post('/upload', audioFile);
-            console.log("File Uploaded : ", uploadResponse)
-            setHelperText("Audio Uploaded..")
+            // const { data: uploadResponse } = await assembly.post('/upload', audioFile);
+            // console.log("File Uploaded : ", uploadResponse)
+            // setHelperText("Audio Uploaded..")
 
-            const { data } = await assembly.post('/transcript', {
-                audio_url: uploadResponse.upload_url,
-                sentiment_analysis: true,
-                entity_detection: true,
-                iab_categories: true,
-            });
-            setHelperText("Sending Audio for Transcription.")
-            console.log("File sent for transcript : ", data)
-            setTranscript({ id: data.id });
+            // const { data } = await assembly.post('/transcript', {
+            //     audio_url: uploadResponse.upload_url,
+            //     sentiment_analysis: true,
+            //     entity_detection: true,
+            //     iab_categories: true,
+            // });
+            // setHelperText("Sending Audio for Transcription.")
+            // console.log("File sent for transcript : ", data)
+            // setTranscript({ id: data.id });
         }
     };
     const fetchTranscriptResults = async () => {

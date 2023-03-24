@@ -10,6 +10,7 @@ import {
   Route,
 } from "react-router-dom";
 import About from './components/About/About.component';
+import Temp from './components/Temp/Temp.component';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
             <div className='container'>
               <Navbar />
               <MainSection />
+              <Temp/>
               <RecordSection />
               <Footer />
             </div>
