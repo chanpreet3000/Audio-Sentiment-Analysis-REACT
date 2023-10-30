@@ -20,7 +20,7 @@ const RecordSection = () => {
         setIsLoading(true);
         const formData = new FormData();
         formData.append('file', file);
-        axios.post('/upload', formData)
+        axios.post('http://localhost:4000/upload', formData)
             .then((response) => {
                 console.log(response);
                 setIsLoading(false);
@@ -41,7 +41,7 @@ const RecordSection = () => {
         setIsLoading(true);
         const formData = new FormData();
         formData.append("audioFile", blob, "audio.webm");
-        axios.post('/convert', formData)
+        axios.post('http://localhost:4000/upload', formData)
             .then((response) => {
                 console.log(response);
                 setIsLoading(false);

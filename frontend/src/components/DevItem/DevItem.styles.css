@@ -17,7 +17,7 @@
 .dev-item-image {
     width: 100%;
     aspect-ratio: 1.2;
-    background: url("../../images/chanpreet.jpg");
+    background: url("../../images/samaksh.png");
     background-position: 50% 0%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -83,17 +83,13 @@
 }
 
 .dev-item-container:nth-child(1) .dev-item-image {
-    background-image: url("../../images/chanpreet.jpg");
+    background-image: url("../../images/kushagra.png");
 }
 
 .dev-item-container:nth-child(2) .dev-item-image {
-    background-image: url("../../images/aryan.jpg");
+    background-image: url("../../images/samaksh.png");
 }
 
 .dev-item-container:nth-child(3) .dev-item-image {
-    background-image: url("../../images/ankit.jpg");
-}
-
-.dev-item-container:nth-child(4) .dev-item-image {
-    background-image: url("../../images/aashish.jpg");
+    background-image: url("../../images/achint.png");
 }
