@@ -41,7 +41,7 @@ const RecordSection = () => {
         setIsLoading(true);
         const formData = new FormData();
         formData.append("audioFile", blob, "audio.webm");
-        axios.post('http://localhost:4000/upload', formData)
+        axios.post('http://localhost:4000/recording', formData)
             .then((response) => {
                 console.log(response);
                 setIsLoading(false);
@@ -99,39 +99,6 @@ const RecordSection = () => {
                         <div className={`result-item ${data.sentiment.label}`}>
                             <div className="result-item_title">Sentiment</div>
                             <div className="result-item_description">The audio has a {Math.floor(data.sentiment.score * 100)}% {data.sentiment.label} sentiment</div>
-                        </div>
-                        <div className='result-item'>
-                            <div className="result-item_title">Emotions</div>
-                            <div className="emotion-items">
-                                {
-                                    data.emotions.map((ele, key) => {
-                                        return (
-                                            <div key={key} className='emotion-item'>
-                                                <div className='emotion-item__label'>{ele['label']}</div>
-                                                <div className='emotion-item__bar' style={{
-                                                    width: Math.ceil(ele['score'] * 700),
-                                                }}></div>
-                                                <div className='emotion-item__score'> {Math.ceil(ele['score'] * 100)}%</div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </div>
-                        </div>
-                        <div className="result-item">
-                            <div className="result-item_title">Entities</div>
-                            <div className="entity-items">
-                                {
-                                    data.entities.length > 0?
-                                    data.entities.map((ele, key) => {
-                                        return (
-                                            <div key={key} className='entity-item'>{ele}</div>
-                                        );
-                                    })
-                                    :
-                                    <p>No Entites Found</p>
-                                }
-                            </div>
                         </div>
                     </div>
             }
